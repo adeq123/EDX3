@@ -140,7 +140,7 @@ public class Maze {
 	    
 	    int[] newCoords = getNeighbourCoords(pos.getCoords()[0], pos.getCoords()[1], mov);
 	    if (newCoords != null) {
-	        // TODO: create new MazePosition object with the new coordinates and the received position pos as previous one (from)
+	        newPos = new MazePosition(newCoords, pos);
         }  
 	    return newPos;
 	}

@@ -1,5 +1,8 @@
 package mazeStack;
 
+import java.util.Stack;
+
+
 /**
  * Class StackPathFinder implements an algorithm for finding a path using a Stack
  * @author Raquel M. Crespo-Garcia <rcrespo@it.uc3m.es>
@@ -26,34 +29,52 @@ public class StackPathFinder implements PathFinder {
 
 	public Path findPath(Maze maze) {
 
-        /*
-         * // TO DO
-         * 
-         * Create empty Stack to store maze positions for future visit.
-         * You can use the java.util.Stack class 
-         * or the Deque interface and one of its implementations (e.g. ArrayDeque) 
-         * in the Java API for convenience.
-         * 
-         * Start at position (0, 0)
-         *
-         * While there is any position yet to be explored in the Stack :
-         *      * check the status of the position
-         *      * if GOAL: objective found, finish
-         *      * if VISITED: already explored => nothing to do, continue to next position to explore
-         *      * if OBSTACLE: must be an error => return null
-         *      * if OPEN:
-         *          * change position status to VISITED
-         *          * get adjacent positions to explore in the future; 
-         *            insert into Stack only the ones to be explored (i.e. OPEN or GOAL, ignore VISIED or OBSTACLE)
-         *            Notice that the exploration order determines the path found; 
-         *            you are suggested to get neighbours in the order defined in DIRS_TO_EXPLORE
-         *
-         */
-                
-
-		return null;  // TO DO: modify appropriately
-
+		final MazePosition startPos = new MazePosition(0, 0, null);
+		Stack <MazePosition> posToCheck = new Stack <MazePosition> ();
+		posToCheck.push(startPos);
+		MazePosition currentPos = startPos; 
+		MazePosition next = startPos;
+		
+		while(!posToCheck.isEmpty()){
+			currentPos = posToCheck.pop(); 
+			
+			if(maze.getPosStatus(currentPos) == MazeStatus.OPEN){
+		//	switch( maze.getPosStatus(currentPos)){
+			//case OPEN: 		
+			maze.setPosStatus(currentPos, MazeStatus.VISITED); // if open change to visited
+				for(Movement mov : DIRS_TO_EXPLORE){ //check all of the neighbours
+					next = maze.getNeighbour(currentPos, mov);
+					if(next != null && (maze.getPosStatus(next) == MazeStatus.OPEN || maze.getPosStatus(next) == MazeStatus.GOAL)){
+						posToCheck.push(next); // if any of the neighbours is OPEN or GOAL add to the list
+					}
+				}
+				//break;
+				
+			}else if(maze.getPosStatus(currentPos) == MazeStatus.GOAL){ //if goal build the path
+			//case GOAL:
+				MazePosition aux = currentPos;
+				Path pathFound = new Path ();
+				
+				while(aux != null){
+					pathFound.insertFirst(aux.getCoords()[0], aux.getCoords()[1]);
+					aux = aux.getFrom();
+				}
+				
+				return pathFound;
+				
+			}else if(maze.getPosStatus(currentPos) == MazeStatus.OBSTACLE){ 
+				// OBSTACLE has never been added so if it is on the list then something is wrong
+			//case OBSTACLE:
+				return null;
+			}else if(maze.getPosStatus(currentPos) == MazeStatus.VISITED){ 
+				// NO comprende..
+			//case VISITED:
+			//	break;
+			
+			//}
+		
+			}
+		}
+		return null;
 	}
-
 }
-
