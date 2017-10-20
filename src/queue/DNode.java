@@ -48,5 +48,7 @@ public class DNode {
   public void setVal(Object val) {
     this.val = val;
   }
-
+  public String toString () {
+	    return val.toString();
+	  }
 }

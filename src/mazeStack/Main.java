@@ -9,8 +9,9 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// Test StackPathFinder
-		StackPathFinder pf = new StackPathFinder();
-
+		//StackPathFinder pf = new StackPathFinder();
+		// Test StackPathFinder
+		QueuePathFinder pf = new QueuePathFinder();
 		System.out.println("Test StackPathFinder");
 		Maze maze;
 		Path path;
