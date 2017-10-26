@@ -78,3 +78,4 @@ public class StackPathFinder implements PathFinder {
 		return null;
 	}
 }
+
