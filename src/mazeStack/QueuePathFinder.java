@@ -1,6 +1,8 @@
 package mazeStack;
 
 import java.util.ArrayDeque;
+import java.util.Queue;
+
 
 /**
  * Class QueuePathFinder implements an algorithm for finding a path using a Queue
@@ -21,6 +23,7 @@ public class QueuePathFinder implements PathFinder {
      * Thus, most promising directions are inserted first in the Queue  
      * in order to get them explored first.
      */
+	
     private static final Movement[] DIRS_TO_EXPLORE = new Movement[] {
         	Movement.DOWN,
         	Movement.RIGHT,
@@ -107,4 +110,5 @@ public class QueuePathFinder implements PathFinder {
 	}
 
 }
+
 
